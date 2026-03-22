@@ -3,22 +3,25 @@ let allData = [];
 let filteredData = [];
 let currentPage = 1;
 const rowsPerPage = 50;
+let currentVersion = 'v2'; // Default version
 
-// CSV files to load
-const csvFiles = [
-    '66_ในเวลาราชการ_final_date_v2.csv',
-    '66_นอกเวลาราชการ_final_date_v2.csv',
-    '66_วันหยุดราชการ_final_date_v2.csv',
-    '67_ในเวลาราชการ_final_date_v2.csv',
-    '67_นอกเวลาราชการ_final_date_v2.csv',
-    '67_วันหยุดราชการ_final_date_v2.csv',
-    '68_ในเวลาราชการ_final_date_v2.csv',
-    '68_นอกเวลาราชการ_final_date_v2.csv',
-    '68_วันหยุดราชการ_final_date_v2.csv',
-    '69_ในเวลาราชการ_final_date_v2.csv',
-    '69_นอกเวลาราชการ_final_date_v2.csv',
-    '69_วันหยุดราชการ_final_date_v2.csv'
-];
+// Function to get CSV files based on version
+function getCsvFiles(version) {
+    const years = ['66', '67', '68', '69'];
+    const periods = ['ในเวลาราชการ', 'นอกเวลาราชการ', 'วันหยุดราชการ'];
+    const files = [];
+    
+    for (const year of years) {
+        for (const period of periods) {
+            files.push(`${year}_${period}_final_date_${version}.csv`);
+        }
+    }
+    
+    return files;
+}
+
+// CSV files to load (default v2)
+let csvFiles = getCsvFiles('v2');
 
 // DOM elements
 const loading = document.getElementById('loading');
@@ -26,6 +29,7 @@ const loadingDetail = document.getElementById('loadingDetail');
 const searchContainer = document.getElementById('searchContainer');
 const searchInput = document.getElementById('searchInput');
 const clearBtn = document.getElementById('clearBtn');
+const versionFilter = document.getElementById('versionFilter');
 const yearFilter = document.getElementById('yearFilter');
 const periodFilter = document.getElementById('periodFilter');
 const provinceFilter = document.getElementById('provinceFilter');
@@ -260,6 +264,21 @@ clearBtn.addEventListener('click', () => {
     searchInput.value = '';
     clearBtn.style.display = 'none';
     search();
+});
+
+versionFilter.addEventListener('change', async () => {
+    const newVersion = versionFilter.value;
+    if (newVersion !== currentVersion) {
+        currentVersion = newVersion;
+        csvFiles = getCsvFiles(newVersion);
+        
+        // แสดง loading
+        searchContainer.style.display = 'none';
+        loading.style.display = 'flex';
+        
+        // โหลดข้อมูลใหม่
+        await loadAllData();
+    }
 });
 
 yearFilter.addEventListener('change', search);
