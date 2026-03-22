@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบค้นหาข้อมูลสัตว์ป่วย หนองโพ (2559-2569)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔍 ระบบค้นหาข้อมูลสัตว์ป่วย</h1>
+            <p class="subtitle">รายงานสัตว์ป่วยหนองโพ พ.ศ. 2559-2569</p>
+        </header>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>กำลังโหลดข้อมูล...</p>
+            <p class="loading-detail" id="loadingDetail">กรุณารอสักครู่</p>
+        </div>
+
+        <div class="search-container" id="searchContainer" style="display: none;">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="🔍 ค้นหา (ชื่อสกุล, OPD ก่อนแก้, OPD หลังแก้)"
+                    autocomplete="off"
+                >
+                <button id="clearBtn" class="clear-btn" style="display: none;">✕</button>
+            </div>
+
+            <div class="filters">
+                <select id="yearFilter" class="filter-select">
+                    <option value="">ปี: ทั้งหมด</option>
+                    <option value="66">2566</option>
+                    <option value="67">2567</option>
+                    <option value="68">2568</option>
+                    <option value="69">2569</option>
+                </select>
+
+                <select id="periodFilter" class="filter-select">
+                    <option value="">ช่วงเวลา: ทั้งหมด</option>
+                    <option value="ในเวลาราชการ">ในเวลาราชการ</option>
+                    <option value="นอกเวลาราชการ">นอกเวลาราชการ</option>
+                    <option value="วันหยุดราชการ">วันหยุดราชการ</option>
+                </select>
+
+                <select id="provinceFilter" class="filter-select">
+                    <option value="">จังหวัด: ทั้งหมด</option>
+                </select>
+
+                <button id="resetFilters" class="reset-btn">รีเซ็ตตัวกรอง</button>
+            </div>
+
+            <div class="stats">
+                <span id="resultCount">แสดง 0 จาก 0 รายการ</span>
+                <span id="searchTime"></span>
+            </div>
+
+            <div class="table-container">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>วันที่</th>
+                            <th>OPD ก่อนแก้</th>
+                            <th>OPD หลังแก้</th>
+                            <th>ชื่อสกุล</th>
+                            <th>อำเภอ</th>
+                            <th>จังหวัด</th>
+                            <th>สุนัข</th>
+                            <th>แมว</th>
+                            <th>สัตว์เลี้ยงลูกด้วยนม</th>
+                            <th>ปี</th>
+                            <th>ช่วงเวลา</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <tr>
+                            <td colspan="12" class="no-results">กรุณาค้นหาหรือเลือกตัวกรอง</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination">
+                <button id="prevPage" class="page-btn" disabled>← ก่อนหน้า</button>
+                <span id="pageInfo">หน้า 1 จาก 1</span>
+                <button id="nextPage" class="page-btn" disabled>ถัดไป →</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>ข้อมูลจาก: รายงานสัตว์ป่วยหนองโพ พ.ศ. 2559-2569</p>
+            <p>จำนวนข้อมูลทั้งหมด: <span id="totalRecords">0</span> รายการ</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
