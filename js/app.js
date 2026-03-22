@@ -3,7 +3,7 @@ let allData = [];
 let filteredData = [];
 let currentPage = 1;
 const rowsPerPage = 50;
-let currentVersion = 'v2'; // Default version
+let currentVersion = 'v3'; // Default version
 
 // Function to get CSV files based on version
 function getCsvFiles(version) {
@@ -20,8 +20,8 @@ function getCsvFiles(version) {
     return files;
 }
 
-// CSV files to load (default v2)
-let csvFiles = getCsvFiles('v2');
+// CSV files to load (default v3)
+let csvFiles = getCsvFiles('v3');
 
 // DOM elements
 const loading = document.getElementById('loading');
