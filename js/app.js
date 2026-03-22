@@ -118,11 +118,16 @@ function initializeFilters() {
     });
 }
 
+// Normalize whitespace (แปลง space หลายตัวเป็น 1 ตัว)
+function normalizeWhitespace(text) {
+    return text.replace(/\s+/g, ' ').trim();
+}
+
 // Search function
 function search() {
     const startTime = performance.now();
     
-    const query = searchInput.value.trim().toLowerCase();
+    const query = normalizeWhitespace(searchInput.value.toLowerCase());
     const selectedYear = yearFilter.value;
     const selectedPeriod = periodFilter.value;
     const selectedProvince = provinceFilter.value;
@@ -132,7 +137,7 @@ function search() {
         // Text search
         let matchesSearch = true;
         if (query) {
-            const name = (row['ชื่อสกุล'] || '').toLowerCase();
+            const name = normalizeWhitespace((row['ชื่อสกุล'] || '').toLowerCase());
             const opdBefore = (row['OPD_ก่อนแก้'] || '').toLowerCase();
             const opdAfter = (row['OPD_หลังแก้'] || '').toLowerCase();
             
@@ -179,7 +184,7 @@ function displayResults() {
         resultsBody.innerHTML = '<tr><td colspan="12" class="no-results">ไม่พบข้อมูล</td></tr>';
         resultCount.textContent = 'แสดง 0 จาก 0 รายการ';
     } else {
-        const query = searchInput.value.trim().toLowerCase();
+        const query = normalizeWhitespace(searchInput.value.toLowerCase());
         
         pageData.forEach((row, index) => {
             const tr = document.createElement('tr');
@@ -225,8 +230,9 @@ function displayResults() {
 function highlightText(text, query) {
     if (!query || !text) return text;
     
+    const normalizedText = normalizeWhitespace(text);
     const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
-    return text.replace(regex, '<span class="highlight">$1</span>');
+    return normalizedText.replace(regex, '<span class="highlight">$1</span>');
 }
 
 // Escape regex special characters

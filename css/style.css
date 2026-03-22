@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #6b7c3a 0%, #45521C 100%);
     min-height: 100vh;
     padding: 20px;
 }
@@ -26,9 +26,13 @@ body {
 }
 
 .header h1 {
-    color: #667eea;
+    color: #45521C;
     font-size: 2.5em;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 
 .subtitle {
@@ -46,7 +50,7 @@ body {
 
 .spinner {
     border: 4px solid #f3f3f3;
-    border-top: 4px solid #667eea;
+    border-top: 4px solid #45521C;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -93,8 +97,8 @@ body {
 
 #searchInput:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #45521C;
+    box-shadow: 0 0 0 3px rgba(69, 82, 28, 0.1);
 }
 
 .clear-btn {
@@ -142,7 +146,7 @@ body {
 
 .filter-select:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #45521C;
 }
 
 .reset-btn {
@@ -190,7 +194,7 @@ body {
 }
 
 .results-table th {
-    background: #667eea;
+    background: #45521C;
     color: white;
     padding: 12px;
     text-align: left;
@@ -233,7 +237,7 @@ body {
 
 .page-btn {
     padding: 10px 20px;
-    background: #667eea;
+    background: #45521C;
     color: white;
     border: none;
     border-radius: 8px;
@@ -243,7 +247,7 @@ body {
 }
 
 .page-btn:hover:not(:disabled) {
-    background: #5568d3;
+    background: #5a6a24;
     transform: translateY(-2px);
 }
 
@@ -273,7 +277,7 @@ body {
 
 #totalRecords {
     font-weight: 700;
-    color: #667eea;
+    color: #45521C;
 }
 
 @media (max-width: 768px) {
