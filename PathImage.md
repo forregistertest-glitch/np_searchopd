@@ -82,22 +82,32 @@ New Slide -> QuPath Interface -> Run Script -> AI Inference Engine -> Marking & 
 ---
 
 
-graph LR
-    %% Phase 1: Preparation
-    A[<b>1. Slide Glass</b><br/>Lymph Node FNA] -->|Scanning| B[<b>2. Digital Image</b><br/>.svs / .ndpi]
-    B --> C[<b>3. QuPath QC</b><br/>Tiling 512px]
+```mermaid
+graph TD
+    %% Phase 1: การเตรียมข้อมูล
+    subgraph "Phase 1: Data Acquisition"
+        A[<b>1. Slide Glass</b><br/>Lymph Node FNA] -->|Scanning| B[<b>2. Digital Image</b><br/>.svs / .ndpi]
+        B --> C[<b>3. QuPath QC</b><br/>Tiling & Patching 512px]
+    end
 
-    %% Phase 2: Training
-    C --> D[<b>4. CVAT</b><br/>Annotation]
-    D -->|Labeling| E[<b>5. PyTorch</b><br/>AI Training]
-    E --> F[<b>6. AI Model</b><br/>.pth / .onnx]
+    %% Phase 2: การพัฒนา AI
+    subgraph "Phase 2: AI Development"
+        C --> D[<b>4. CVAT Annotation</b><br/>Labeling by Pathologist]
+        D --> E[<b>5. PyTorch Training</b><br/>Model: YOLOv11]
+        E --> F[<b>6. AI Model Saved</b><br/>File: .pth / .onnx]
+    end
 
-    %% Phase 3: Analysis
-    F --> G[<b>7. Inference</b><br/>MPS/GPU Engine]
-    G --> H[<b>8. QuPath UI</b><br/>Detection/Counting]
-    H --> I[<b>9. Final Report</b><br/>Differential Count]
+    %% Phase 3: การวิเคราะห์และรายงานผล
+    subgraph "Phase 3: Production & Analysis"
+        F --> G[<b>7. Inference Engine</b><br/>MPS / GPU Acceleration]
+        G --> H[<b>8. QuPath Interface</b><br/>Detection & Counting]
+        H --> I[<b>9. Final Report</b><br/>% Differential Count]
+    end
 
-    %% Styles
+    %% การตกแต่งสี (Styles)
     style A fill:#f9f,stroke:#333,stroke-width:2px
-    style F fill:#00ff00,stroke:#333,stroke-width:2px
-    style I fill:#00ffff,stroke:#333,stroke-width:2px
+    style F fill:#dfd,stroke:#333,stroke-width:2px
+    style I fill:#dff,stroke:#333,stroke-width:2px
+    
+    %% เส้นประแสดงการเชื่อมโยงข้อมูลเสริม
+    B -.->|Z-Stack Info| G
